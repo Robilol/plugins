@@ -1,0 +1,56 @@
+partie en cours -> https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/19474597?api_key=RGAPI-3776cbb9-7b39-4f26-93a1-395c728ff754
+error 404, not found si pas de partie en cours
+
+
+
+
+
+stats des 10 derniers matchs -> https://euw.api.pvp.net/api/lol/euw/v1.3/game/by-summoner/19474597/recent?api_key=RGAPI-3776cbb9-7b39-4f26-93a1-395c728ff754
+info à recup: sur le joueur
+			  gameId
+			  spell1
+			  spell2
+			  subType (type de game)
+			  createDate (fin de la game)
+			  championId
+			  teamId (100 == blue 200 == purple)
+
+			  array fellowPlayers
+			  		championId
+			  		teamId
+			  		summonerId
+
+			  array stats
+			  		totalDamageDealtToChampions
+			  		totalDamageTaken
+			  		goldEarned
+			  		timePlayed
+			  		minionsKilled (assez bizarre j'ai l'impression que c'est seulement les minions de lane, donc faut additionné avec neutralMinionsKilled et maybe 			   neutralMinionsKilledEnemyJungle pour avoir le total)
+			  		wardPlaced
+			  		visionWardsBought
+			  		
+			  		playerPosition (comme lane sauf que c'est des ID au lieu de string)
+			  		playerRole		(same avec role)
+			  		
+			  		championsKilled
+			  		numDeaths
+			  		assists
+			  		
+			  		largestKillingSpree
+			  		largestMultiKill
+			  		
+			  		win (bool)
+			  		team
+			  		
+			  		item0, item1, item2, item3, item4, item5, item6
+			  		
+
+historique des machs -> https://euw.api.pvp.net/api/lol/euw/v2.2/matchlist/by-summoner/19474597?api_key=RGAPI-3776cbb9-7b39-4f26-93a1-395c728ff754
+info à récup: matchId
+			  champion (championId)
+			  queue
+			  timestamp
+			  lane
+			  role
+if lane == BOTTOM : role = DUO || DUO_SUPPORT else osef de role
+
