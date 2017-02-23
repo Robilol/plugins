@@ -285,8 +285,7 @@ class LolStatsTracker
         $link = "https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/".$this->regionConversion[$this->region]."/".$this->id."?api_key=".$this->getKey();
 
         if (@file_get_contents($link, true) === false) {
-            echo "Partie non trouvée";
-            return;
+            return 0;
         } else {
             $data = file_get_contents($link, true);
             $data = json_decode($data);
