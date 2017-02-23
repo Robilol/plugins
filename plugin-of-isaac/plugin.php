@@ -30,8 +30,6 @@ function handle_post(){
     $tracker->setGame($tracker->getCurrentGame());
     $tracker->setLastGames($tracker->lastGames());
 
-    var_dump($tracker);
-
     if ($tracker->getGame() == 0) {
         include 'errorCurrent.view.php';
     } else {

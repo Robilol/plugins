@@ -388,6 +388,9 @@ class LolStatsTracker
                     $game[$y]["damageTake"] = $data->games[$y]->stats->totalDamageTaken;
                     $game[$y]["ward"] = $data->games[$y]->stats->wardPlaced;
                     $game[$y]["timePlayed"] = $data->games[$y]->stats->timePlayed;
+                    $sec = $game[$y]["timePlayed"] % 60;
+                    $min = ($game[$y]["timePlayed"] - $sec) / 60;
+                    $game[$y]["timePlayed"] = $min.":".$sec;
                     if (empty($data->games[$y]->stats->win))
                         $game[$y]["win"] = 0;
                     else
