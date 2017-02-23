@@ -1,3 +1,4 @@
+<div class="lst">
 <h3>Equipe Bleu</h3>
 <table>
     <thead>
@@ -21,11 +22,9 @@
         }
         ?>
     </tbody>
-    <tfoot>
-        
-    </tfoot>
 </table>
-
+</div>
+<div class="lst">
 <h3>Equipe Violet</h3>
 <table>
     <thead>
@@ -36,7 +35,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php 
+        <?php
         foreach ($tracker->getGame() as $player) {
             if ($player['team'] == 200) {
                 echo "<tr>";
@@ -50,6 +49,7 @@
         ?>
     </tbody>
     <tfoot>
-        
+
     </tfoot>
 </table>
+</div>

@@ -10,14 +10,16 @@ add_shortcode("lol_stats_tracker", "plugin_init");
 
 function plugin_init(){
     ?>
+    <div class="lst-form">
     <h1>LoL Stats Tracker</h1>
     <form  method="post" action="">
-        <input id="pseudo" type="text" name="pseudo">
-        <select name="region">
+        <input id="pseudo" type="text" name="pseudo" placeholder="Nom d'invocateur">
+        <select name="region" id="region">
             <option value="euw">EUW</option>
         </select>
-        <input type="submit" value="bla">
+        <input type="submit" value="Rechercher l'invocateur">
     </form>
+  </div>
     <?php
     if(isset($_POST['pseudo']) && isset($_POST['region']) && $_POST['pseudo'] != ""){
         handle_post();
@@ -39,6 +41,6 @@ function handle_post(){
     if ($tracker->getLastGames() == 0) {
         include 'errorLast.view.php';
     } else {
-        include 'last.view.php';  
+        include 'last.view.php';
     }
 }
