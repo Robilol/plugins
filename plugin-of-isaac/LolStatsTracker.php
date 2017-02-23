@@ -7,6 +7,7 @@ class LolStatsTracker
     private $region;
     private $id;
     private $game;
+    private $lastGames;
 
     private $regionConversion = array(  'euw'   => 'EUW1',
                                         'na'    => 'NA1',
@@ -268,6 +269,54 @@ class LolStatsTracker
         return $this;
     }
 
+    /**
+     * Gets the value of game.
+     *
+     * @return mixed
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * Sets the value of game.
+     *
+     * @param mixed $game the game
+     *
+     * @return self
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Sets the value of lastGames.
+     *
+     * @param mixed $lastGames the last games
+     *
+     * @return self
+     */
+    public function setLastGames($lastGames)
+    {
+        $this->lastGames = $lastGames;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of lastGames.
+     *
+     * @return mixed
+     */
+    public function getLastGames()
+    {
+        return $this->lastGames;
+    }
+
     public function setUserId()
     {
         $link = "https://euw.api.pvp.net/api/lol/".$this->region."/v1.4/summoner/by-name/".$this->user."?api_key=".$this->getKey();
@@ -313,27 +362,45 @@ class LolStatsTracker
         }
     }
 
-    /**
-     * Gets the value of game.
-     *
-     * @return mixed
-     */
-    public function getGame()
-    {
-        return $this->game;
+    public function lastGames(){
+        $link = "https://euw.api.pvp.net/api/lol/".$this->region."/v1.3/game/by-summoner/".$this->id."/recent?api_key=".$this->getKey();
+         if (@file_get_contents($link, true) === false) {
+            return 0;
+        } else {
+            $data = file_get_contents($link, true);
+            $data = json_decode($data);
+            $y = 0;
+                while ($y < 10)
+                {
+                    $game[$y]["team"] = $data->games[$y]->teamId;
+                    $spell1 = $data->games[$y]->spell1;
+                    $game[$y]["spell1"] = $this->spellConversion[$spell1];
+                    $spell2 = $data->games[$y]->spell2;
+                    $game[$y]["spell2"] = $this->spellConversion[$spell2];
+                    $champion = $data->games[$y]->championId;
+                    $game[$y]["champion"] = $this->championConversion[$champion];
+                    $game[$y]["level"] = $data->games[$y]->stats->level;
+                    $game[$y]["gold"] = $data->games[$y]->stats->goldEarned;
+                    $game[$y]["kill"] = $data->games[$y]->stats->championsKilled;
+                    $game[$y]["assist"] = $data->games[$y]->stats->assists;
+                    $game[$y]["death"] = $data->games[$y]->stats->numDeaths;
+                    $game[$y]["damageGive"] = $data->games[$y]->stats->totalDamageDealtToChampions;
+                    $game[$y]["damageTake"] = $data->games[$y]->stats->totalDamageTaken;
+                    $game[$y]["ward"] = $data->games[$y]->stats->wardPlaced;
+                    $game[$y]["timePlayed"] = $data->games[$y]->stats->timePlayed;
+                    if (empty($data->games[$y]->stats->win))
+                        $game[$y]["win"] = 0;
+                    else
+                        $game[$y]["win"] = 1;
+                    if (isset($data->games[$y]->stats->playerPosition))
+                    $game[$y]["position"] = $data->games[$y]->stats->playerPosition; // Player position (Legal values: TOP(1), MIDDLE(2), JUNGLE(3), BOT(4))
+                    if (isset($data->games[$y]->stats->playerRole))
+                    $game[$y]["role"] = $data->games[$y]->stats->playerRole; // Player role (Legal values: DUO(1), SUPPORT(2), CARRY(3), SOLO(4))
+                    
+                    $y++;
+                }
+            return $game;
+        }
     }
 
-    /**
-     * Sets the value of game.
-     *
-     * @param mixed $game the game
-     *
-     * @return self
-     */
-    public function setGame($game)
-    {
-        $this->game = $game;
-
-        return $this;
-    }
 }

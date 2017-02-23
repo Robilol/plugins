@@ -1,4 +1,3 @@
-
 <h3>Equipe Bleu</h3>
 <table>
     <thead>

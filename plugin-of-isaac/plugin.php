@@ -28,9 +28,19 @@ function handle_post(){
     $ignoreErrorsContext = stream_context_create(['http' => ['ignore_errors' => true]]);
     $tracker = new LolStatsTracker($_POST['pseudo'], $_POST['region']);
     $tracker->setGame($tracker->getCurrentGame());
+    $tracker->setLastGames($tracker->lastGames());
+
+    var_dump($tracker);
+
     if ($tracker->getGame() == 0) {
-        include 'error.view.php';
+        include 'errorCurrent.view.php';
     } else {
-        include 'result.view.php';  
+        include 'current.view.php';  
+    }
+
+    if ($tracker->getLastGames() == 0) {
+        include 'errorLast.view.php';
+    } else {
+        include 'last.view.php';  
     }
 }

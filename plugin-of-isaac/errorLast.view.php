@@ -1,0 +1,1 @@
+<h1>Pas d'anciennes partie trouvées</h1>
