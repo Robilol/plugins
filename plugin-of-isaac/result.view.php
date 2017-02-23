@@ -1,8 +1,3 @@
-<?php
-require("plugin.php");
-$stats = new LolStatsTracker("Dokor", "euw");
-$player = $stats->getcurrentGame();
-?>
 
 <h3>Equipe Bleu</h3>
 <table>
@@ -14,18 +9,16 @@ $player = $stats->getcurrentGame();
         </tr>
     </thead>
     <tbody>
-        <?php 
-        $y = 0;
-        while ($y < 10) {
-            if ($player[$y]["team"] == 100){
-                echo "<tr>
-                    <td>".$player[$y]["name"]."</td>
-                    <td>".$player[$y]["champion"]."</td>
-                    <td>".$player[$y]["spell1"]."</td>
-                    <td>".$player[$y]["spell2"]."</td>
-                </tr>";
+        <?php
+        foreach ($tracker->getGame() as $player) {
+            if ($player['team'] == 100) {
+                echo "<tr>";
+                echo "<td>".$player['name']."</td>";
+                echo "<td>".$player['champion']."</td>";
+                echo "<td>".$player['spell1']."</td>";
+                echo "<td>".$player['spell2']."</td>";
+                echo "</tr>";
             }
-            $y++;
         }
         ?>
     </tbody>
@@ -45,17 +38,15 @@ $player = $stats->getcurrentGame();
     </thead>
     <tbody>
         <?php 
-        $y = 0;
-        while ($y < 10) {
-            if ($player[$y]["team"] == 200){
-                echo "<tr>
-                    <td>".$player[$y]["name"]."</td>
-                    <td>".$player[$y]["champion"]."</td>
-                    <td>".$player[$y]["spell1"]."</td>
-                    <td>".$player[$y]["spell2"]."</td>
-                </tr>";
+        foreach ($tracker->getGame() as $player) {
+            if ($player['team'] == 200) {
+                echo "<tr>";
+                echo "<td>".$player['name']."</td>";
+                echo "<td>".$player['champion']."</td>";
+                echo "<td>".$player['spell1']."</td>";
+                echo "<td>".$player['spell2']."</td>";
+                echo "</tr>";
             }
-            $y++;
         }
         ?>
     </tbody>

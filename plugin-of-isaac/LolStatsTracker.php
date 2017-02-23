@@ -6,6 +6,7 @@ class LolStatsTracker
     private $user;
     private $region;
     private $id;
+    private $game;
 
     private $regionConversion = array(  'euw'   => 'EUW1',
                                         'na'    => 'NA1',
@@ -281,8 +282,6 @@ class LolStatsTracker
 
     public function getCurrentGame()
     {
-        var_dump($this->regionConversion);
-        var_dump($this->region);
         $link = "https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/".$this->regionConversion[$this->region]."/".$this->id."?api_key=".$this->getKey();
 
         if (@file_get_contents($link, true) === false) {
@@ -311,10 +310,31 @@ class LolStatsTracker
                                                           "team" => $data->bannedChampions[$y]->teamId));
                 $y++;
             }
-            echo "<pre>";
-            print_r($player);
-
             return $player;
         }
+    }
+
+    /**
+     * Gets the value of game.
+     *
+     * @return mixed
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * Sets the value of game.
+     *
+     * @param mixed $game the game
+     *
+     * @return self
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+
+        return $this;
     }
 }

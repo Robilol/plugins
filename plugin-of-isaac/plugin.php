@@ -27,6 +27,6 @@ function plugin_init(){
 function handle_post(){
     $ignoreErrorsContext = stream_context_create(['http' => ['ignore_errors' => true]]);
     $tracker = new LolStatsTracker($_POST['pseudo'], $_POST['region']);
-    $tracker->getCurrentGame();
-    require 'result.view.php';
+    $tracker->setGame($tracker->getCurrentGame());
+    include 'result.view.php';
 }
