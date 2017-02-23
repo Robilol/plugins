@@ -1,6 +1,6 @@
 <h2>Dernières parties :</h2>
 
-
+<div class="lst">
 <table>
     <thead>
         <tr>
@@ -53,3 +53,4 @@
 
     </tfoot>
 </table>
+</div>
